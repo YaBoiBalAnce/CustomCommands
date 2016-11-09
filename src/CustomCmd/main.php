@@ -39,12 +39,11 @@ class main extends PluginBase implements Listener
                 return;
             }
             $cmd = $this->cmds[$name];
-            if ($cmd instanceof customCMD){
-                if ($sender->hasPermission($cmd->getPermission()) or $cmd->getPermission() === ""){
-                    $cmd->execute($sender, array_shift($msg));
-                    return;
-                }
-                $sender->sendMessage(self::no_permission_msg);
+              if ($cmd instanceof customCMD and $sender->hasPermission($cmd->getPermission()) or $cmd->getPermission() === ""){
+                  $cmd->execute($sender, array_shift($msg));
+                  return;
+              }
+              $sender->sendMessage(self::no_permission_msg);
             }
         }
     }
@@ -57,7 +56,6 @@ class main extends PluginBase implements Listener
         }
     }
 
-
     public function sendHelp(Player $p){
         $p->sendMessage(self::help_title);
         $done = [];
@@ -66,17 +64,13 @@ class main extends PluginBase implements Listener
             return;
         }
         foreach ($this->cmds as $cmd => $class){
-            if ($class instanceof customCMD){
-                if (!isset($done[$class->getName()]) and $class->getName() !== "help"){
-                    $done[$class->getName()] = 0;
-                    if ($p->hasPermission($class->getPermission()) or $class->getPermission() === "") {
-                        $p->sendMessage(".{$class->getName()} - {$class->getDesc()}");
-                    }
+            if ($class instanceof customCMD and !isset($done[$class->getName()]) and $class->getName() !== "help"){
+                $done[$class->getName()] = 0;
+                if ($p->hasPermission($class->getPermission()) or $class->getPermission() === "") {
+                    $p->sendMessage(".{$class->getName()} - {$class->getDesc()}");
                 }
             }
         }
     }
-
-
-
+    
 }
