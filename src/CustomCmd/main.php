@@ -23,6 +23,7 @@ class main extends PluginBase implements Listener
     public function onEnable()
     {
         $this->getLogger()->alert("Enabled CustomCommand Plugin by BalAnce");
+        $this->getServer()->getPluginManager()->registerEvents($this,$this);
         $this->registerCustomCmd(new helpCmd($this));
     }
 
