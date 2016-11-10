@@ -34,6 +34,7 @@ class main extends PluginBase implements Listener
         if (substr($msg[0], 0, 1) === "."){
             $sender = $ev->getPlayer();
             $name = str_replace("."," ",$msg[0]);
+            $ev->setCanceled();
             if (!isset($this->cmds[$name])){
                 $sender->sendMessage(self::unknown_cmd_msg);
                 return;
